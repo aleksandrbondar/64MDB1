@@ -1,0 +1,9 @@
+div#commentForm.add-comment
+  form(action=`/api/comments/edit/${idComment}`, method="POST")
+    div.form-item
+      label(for="text") Edit your comment here
+      input#comment(type="text", name="text", value= textComment, required)
+
+    div.form-btn
+      input(type="submit", value="Submit")
+      a(href=`/movie/${movie._id}`) Cancel

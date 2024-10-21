@@ -1,0 +1,20 @@
+nav
+  div.container
+    div.navbar
+      div
+        button#theme-toggle Switch theme
+      ul.nav
+        li.nav-item
+          a(href="/") Main
+        li.nav-item
+          a(href="/movies") Movies
+        li.nav-item
+          a(href="/users") Users
+      div.user
+        if auth
+          img(src="/img/trollface.jpg", alt=`${user.name}`, width="70px")
+          a(href=`/user/${user._id}`)= user.name
+          a(href="/auth/logout") Log Out
+        if !auth
+          a(href="/auth/login") Log In
+          a(href="/auth/registration") Registration

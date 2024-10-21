@@ -1,0 +1,9 @@
+div#commentForm.add-comment
+  form(action=`/api/comments/add/${movie._id}`, method="POST")
+    div.form-item
+      label(for="text") Write your comment here
+      input#comment(type="text", name="text", required)
+
+    div.form-btn
+      input(type="submit", value="Submit")
+      a(href=`/movie/${movie._id}`) Cancel

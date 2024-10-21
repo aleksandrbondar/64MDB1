@@ -1,0 +1,40 @@
+.pagination
+  if currectPage > 1
+    a(href=`${baseUrl}/${currectPage - 1}`) <
+
+    a(href=`${baseUrl}/1`)= 1
+
+  if currectPage === 1
+    a.active(href=`${baseUrl}/1`)= 1
+    if pages > 2
+      a(href=`${baseUrl}/2`)= 2
+      if pages > 3
+        span ...
+        a(href=`${baseUrl}/${pages}`)= pages
+
+  else if currectPage === 2
+    a(href=`${baseUrl}/2`).active= 2
+    if pages > 3
+      a(href=`${baseUrl}/3`)= 3
+      if pages > 4
+        span ...
+        a(href=`${baseUrl}/${pages}`)= pages
+
+  else if currectPage > 2 && currectPage < pages - 1
+    span ...
+    a.active(href=`${baseUrl}/${currectPage}`)= currectPage
+    span ...
+    a(href=`${baseUrl}/${pages}`)= pages
+
+  else if currectPage === pages - 1
+    span ...
+    a(href=`${baseUrl}/${currectPage}`).active= currectPage
+    a(href=`${baseUrl}/${pages}`)= pages
+
+  else if currectPage === pages
+    span ...
+    a(href=`${baseUrl}/${pages - 1}`)= pages - 1
+    a.active(href=`${baseUrl}/${pages}`)= pages
+
+  if currectPage < pages
+    a(href=`${baseUrl}/${currectPage + 1}`) >

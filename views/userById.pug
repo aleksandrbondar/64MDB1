@@ -1,0 +1,16 @@
+doctype html
+html(lang="en", data-theme=`${theme}`)
+  include ./components/head.pug
+  body
+    include ./components/nav.pug
+    main
+      div.container
+
+        h1.user-name= userById.name
+        img.user-photo(src='/img/trollface.jpg' width='500px')
+        div(style="padding-top: 20px;")
+          a(href=`mailto:${userById.email}`).user-mail= `User @mail: ${userById.email}`
+        p.user-phone= `User ID: ${userById._id}`
+
+    include ./components/footer.pug
+    script(src="/js/script.js")

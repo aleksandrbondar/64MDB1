@@ -1,0 +1,14 @@
+h3.heading User comments
+if editComment
+  include ./editComment.pug
+if addComment
+  include ./addComment.pug
+ul.comments
+  each comment in comments
+    li.comments_item
+      a(href=`/user/${comment.userId}`).comments_user= comment.name
+      if userEmail === comment.email
+        a.delete-coment(href=`/api/comments/delete/${comment._id}?movieId=${movie._id}`) Delete
+        a.edit-coment(href=`${movie._id}?action=editComment&id=${comment._id}`) Edit
+      p.comments_text= comment.text
+      p= `Comment at ${comment.date.toLocaleString()}`

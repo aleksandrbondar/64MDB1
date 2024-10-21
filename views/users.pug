@@ -1,0 +1,21 @@
+doctype html
+html(lang="en", data-theme=`${theme}`)
+  include ./components/head.pug
+  body
+    include ./components/nav.pug
+    main
+      div.container
+
+        h1.heading Hello from PUG!
+        ul.user-list
+          each userById in usersById
+            li.user-item
+              div.user-name
+                a(href=`/user/${userById._id}`)= userById.name
+              p.user-email= userById.email
+              p.user-phone= userById.phone
+
+        include ./components/pagination.pug
+
+    include ./components/footer.pug
+    script(src="/js/script.js")

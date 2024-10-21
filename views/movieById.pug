@@ -1,0 +1,66 @@
+doctype html
+doctype html
+html(lang="en", data-theme=`${theme}`)
+  include ./components/head.pug
+  body
+    include ./components/nav.pug
+    main
+      div.container
+        div.movie-card
+          div.content
+            img(src= movie.poster, alt=movie.title, width="500px")
+            div.movie-info
+              h1.heading= movie.title
+
+              if movie.genres && movie.genres.length
+                p.genres
+                  strong Genres:
+                  span= movie.genres.join(', ')
+
+              if movie.cast && movie.cast.length
+                p.cast
+                  strong Cast:
+                  span= movie.cast.join(', ')
+
+              if movie.directors && movie.directors.length
+                p.directors
+                  strong Directors:
+                  span= movie.directors.join(', ')
+
+              if movie.countries && movie.countries.length
+                p.countries
+                  strong Countries:
+                  span= movie.countries.join(', ')
+
+              if movie.imdb && movie.imdb.rating
+                p.imdb
+                  strong IMDb Rating:
+                  span= movie.imdb.rating
+
+              if movie.runtime
+                p.runtime
+                  strong Runtime:
+                  span= ` ${movie.runtime} minutes`
+
+              if movie.tomatoes && movie.tomatoes.viewer && movie.tomatoes.viewer.rating
+                p.tomatoes
+                  strong Rotten Tomatoes Viewer Rating:
+                  span= ` ${movie.tomatoes.viewer.rating}/5 (based on ${movie.tomatoes.viewer.numReviews} reviews)`
+
+              if movie.awards && movie.awards.text
+                p.awards
+                  strong Awards:
+                  span= movie.awards.text
+
+              p.article-body
+                b= `Movie plot: `
+                span= `${movie.fullplot ? movie.fullplot : movie.plot}`
+
+              div.form-btn
+                a(href=`/movie/${movie._id}`, target="_blank") See more...
+                a(href=`/movie/${movie._id}?action=addComment`) Add comment
+
+        include ./components/comments.pug
+
+    include ./components/footer.pug
+    script(src="/js/script.js")

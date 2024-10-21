@@ -1,0 +1,24 @@
+doctype html
+html(lang="en", data-theme=`${theme}`)
+  include ./components/head.pug
+  body
+    include ./components/nav.pug
+    main
+      div.container
+
+        h1.heading Movies from test DB!
+        ul.article-list
+          each movie in movies
+            li.article-item.content
+              img(src= movie.poster ? movie.poster : "/img/trollface.jpg", alt=movie.title, width="200px")
+              div.movie-info
+                p.article-title= movie.title
+                p.article-body= movie.fullplot ? movie.fullplot : movie.plot
+                p.article-url
+                div
+                  a(href=`/movie/${movie._id}`) See more...
+
+        include ./components/pagination.pug
+
+    include ./components/footer.pug
+    script(src="/js/script.js")

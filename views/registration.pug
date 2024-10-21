@@ -1,0 +1,40 @@
+doctype html
+html(lang="en", data-theme=`${theme}`)
+  include ./components/head.pug
+  body
+    include ./components/nav.pug
+    main
+      div.container
+
+        h1 Registration
+        form(action="/auth/registration", method="POST", style="display: flex; flex-direction: column; gap: 1rem; max-width: 300px;")
+
+          input(type="hidden", name="_csrf", value=`${csrfToken }`)
+
+          div.form-item
+            label(for="name") Enter your username
+            input#username(type="text", name="name", placeholder="name...", autocomplete="off", required)
+
+          div.form-item
+            label(for="email") Enter your @mail
+            input#email(type="text", name="email", placeholder="email...", autocomplete="off", required)
+
+          div.form-item
+            label(for="password") Enter your password
+            input#password(type="password", name="password", placeholder="password...", autocomplete="off", required)
+
+          div.form-item
+            label(for="confirm_password") Confirm your password
+            input#confirm_password(type="password", name="confirmPassword", placeholder="confirm password...", autocomplete="off", required)
+
+          div.g-recaptcha(data-sitekey="6Le5uGcqAAAAANr5AZRRin4kUjI1e7jDYnNNt5v_")
+
+          div.form-item
+            input(type="submit", value="Submit")
+        if error
+          div
+            p(style="color: red")= error
+
+    include ./components/footer.pug
+    script(src="/js/script.js")
+    script(src="https://www.google.com/recaptcha/api.js", async, defer)
