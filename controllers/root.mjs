@@ -1,5 +1,4 @@
 import { connectDB } from '../db.mjs'
-import { ObjectId } from 'mongodb'
 
 const getRootHandler = async (req, res, next) => {
   const theme = req.cookies.theme
@@ -29,7 +28,6 @@ const getRootHandler = async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-
 }
 
 export { getRootHandler }

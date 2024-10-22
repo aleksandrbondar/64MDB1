@@ -1,4 +1,3 @@
-import { name } from 'ejs'
 import { connectDB } from '../db.mjs'
 import { ObjectId } from 'mongodb'
 
