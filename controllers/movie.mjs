@@ -1,3 +1,4 @@
+import { name } from 'ejs'
 import { connectDB } from '../db.mjs'
 import { ObjectId } from 'mongodb'
 
@@ -12,7 +13,7 @@ const getMovieByIdHandler = async (req, res, next) => {
 
     let [movie, comments] = await Promise.all([
       moviesDb.findOne({ _id: new ObjectId(movieId) }),
-      db.collection('comments').find({ movie_id: new ObjectId(movieId) }).toArray()
+      db.collection('comments').find({ movie_id: new ObjectId(movieId) }, { projection: { _id: 1, text: 1, email: 1, date: 1, name: 1 } }).toArray()
     ]);
 
     if (!movie) {
@@ -21,7 +22,7 @@ const getMovieByIdHandler = async (req, res, next) => {
 
     comments = await Promise.all(
       comments.map(async (comment) => {
-        const user = await db.collection('users').findOne({ email: comment.email })
+        const user = await db.collection('users').findOne({ email: comment.email }, { projection: { _id: 1 } })
         return {
           ...comment,
           userId: user ? user._id : null
