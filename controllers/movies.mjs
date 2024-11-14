@@ -1,5 +1,4 @@
 import { connectDB } from '../db.mjs';
-import { ObjectId } from 'mongodb';
 
 const getMoviesHandler = async (req, res, next) => {
   const page = req.params.page ?? 1;
@@ -9,23 +8,30 @@ const getMoviesHandler = async (req, res, next) => {
     const db = await connectDB();
     const moviesDb = db.collection('movies');
 
-    const cursor = moviesDb.find({}).skip((page - 1) * 20).limit(20);
+    const cursor = moviesDb.aggregate([
+      { $skip: (page - 1) * 20 },
+      { $limit: 20 },
+      {
+        $lookup: {
+          from: 'comments',
+          localField: '_id',
+          foreignField: 'movie_id',
+          as: 'comments'
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          poster: 1,
+          plot: 1,
+          fullplot: 1,
+          countComments: { $size: '$comments' }
+        }
+      }
+    ]);
 
-    let movies = [];
-
-    while (await cursor.hasNext()) {
-      const movie = await cursor.next();
-
-      const commentCount = await db.collection('comments').countDocuments({
-        movie_id: new ObjectId(movie._id)
-      });
-
-      movies.push({
-        ...movie,
-        comments: commentCount
-      });
-    }
-
+    const movies = await cursor.toArray();
     const totalMoviesCount = await moviesDb.countDocuments({});
 
     const renderParams = {

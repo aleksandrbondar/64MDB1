@@ -16,7 +16,7 @@ html(lang="en", data-theme=`${theme}`)
                 p.article-body= movie.fullplot ? movie.fullplot : movie.plot
                 p.article-url
                 p
-                  b= `${movie.comments} comments`
+                  b= `${movie.countComments} comments`
                 div
                   a(href=`/movie/${movie._id}`) See more...
 
